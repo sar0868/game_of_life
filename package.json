@@ -16,6 +16,9 @@
   },
   "author": "Safarov AR",
   "license": "ISC",
+  "lint-staged": {
+    "src/**/*.js": "eslint"
+  },
   "devDependencies": {
     "@babel/core": "^7.26.0",
     "@babel/preset-env": "^7.26.0",
