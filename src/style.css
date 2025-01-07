@@ -2,3 +2,50 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.mainBox {
+  border: solid 1px black;
+  display: flex;
+  flex-wrap: wrap;
+  width: 320px;
+  height: 320px;
+  margin: 4% 26%;
+  position: fixed;
+  justify-content: flex-start;
+}
+
+.cellBox {
+  display: block;
+  width: 30px;
+  height: 30px;
+  border: solid 1px black;
+  background-color: white;
+}
+
+.deathCell {
+  background-color: white;
+}
+.aliveCell {
+  background-color: green;
+}
+
+.cellBox:hover {
+  background-color: black;
+  cursor: pointer;
+}
+
+.table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse; /* Убирает двойные границы */
+}
+
+.row {
+  display: table-row;
+}
+
+.cell {
+  display: table-cell;
+  padding: 5px;
+  border: 1px solid #ccc; /* Границы ячеек */
+}
