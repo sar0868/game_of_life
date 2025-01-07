@@ -32,9 +32,7 @@ export class GameField implements IGameField {
       for (let j = 0; j < width; j++) {
         const count = this.countNeighbours(i, j);
         if (this.field[i][j] === 1) {
-          if (count === 2 || count === 3) {
-            field2[i][j] = 1;
-          } else {
+          if (count < 2 || count > 3) {
             field2[i][j] = 0;
           }
         } else if (count === 3) {
