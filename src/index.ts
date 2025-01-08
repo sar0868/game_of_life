@@ -1,19 +1,19 @@
 import "./style.css";
 
-const maketStr = `<div class="table">
-    <div class="row">
-        <div class="cell">A1</div>
-        <div class="cell">B1</div>
-    </div>
-    <div class="row">
-        <div class="cell">A2</div>
-        <div class="cell">B2</div>
-    </div>
-</div>
-`;
+function layout(el: Element) {
+  const table = document.createElement("div");
+  table.classList.add("table");
 
-function maket(el: Element) {
-  el.innerHTML = maketStr;
+  const array = Array(3).fill(Array(10).fill(0));
+  for (let i = 0; i < array.length; i++) {
+    const row = document.createElement("div");
+    row.classList.add("row");
+    for (let j = 0; j < array[0].length; j++) {
+      row.innerHTML += `<div class="cell deathCell" col="${i}" row="${j}"></div>`;
+    }
+    table.appendChild(row);
+  }
+  el.appendChild(table);
 }
 
-maket(document.querySelector("body"));
+layout(document.querySelector("body"));
