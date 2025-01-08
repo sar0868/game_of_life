@@ -24,31 +24,20 @@ export class GameView implements IGameView {
     controls.classList.add("gameControls");
     el.appendChild(controls);
   }
-  createGameField(field: Cell[][]) {
+
+  updateGameField(field: Cell[][]) {
+    this.field.innerHTML = "";
     for (let i = 0; i < field.length; i++) {
       const row = document.createElement("div");
       row.classList.add("row");
       for (let j = 0; j < field[0].length; j++) {
         const cell = document.createElement("div");
-        cell.classList.add("cell", "cell--dead");
-        cell.setAttribute("col", String(i));
-        cell.setAttribute("row", String(j));
-        row.appendChild(cell);
-      }
-      this.field.appendChild(row);
-    }
-  }
-
-  updateGameField(field: Cell[][]) {
-    for (let i = 0; i < field.length; i++) {
-      for (let j = 0; j < field[0].length; j++) {
         const stateCell = field[i][j] === 1 ? "cell--alive" : "cell--dead";
         cell.classList.add("cell", stateCell);
         row.appendChild(cell);
       }
       this.field.appendChild(row);
     }
-    // el.appendChild(table);
   }
 
   updateGameState(state: {
