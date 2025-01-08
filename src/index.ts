@@ -2,9 +2,13 @@ import "./style.css";
 
 function layout(el: Element) {
   const table = document.createElement("div");
-  table.classList.add("table");
+  table.classList.add("gameField");
 
-  const array = Array(3).fill(Array(10).fill(0));
+  // const array = Array(3).fill(Array(10).fill(0));
+  const array = [
+    [1, 0],
+    [0, 1],
+  ];
   for (let i = 0; i < array.length; i++) {
     const row = document.createElement("div");
     row.classList.add("row");

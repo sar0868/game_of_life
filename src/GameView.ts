@@ -13,30 +13,40 @@ export interface IGameView {
 }
 
 export class GameView implements IGameView {
-  private table: HTMLDivElement;
+  // private table: HTMLDivElement;
+  private field: HTMLDivElement;
 
   constructor(el: HTMLElement) {
-    const field: Element = document.createElement("div");
-    field.classList.add("gameField");
-    el.appendChild(field);
+    this.field = document.createElement("div");
+    this.field.classList.add("gameField");
+    el.appendChild(this.field);
     const controls: Element = document.createElement("div");
     controls.classList.add("gameControls");
     el.appendChild(controls);
-    this.table = document.createElement("div");
-    this.table.classList.add("table");
   }
-
-  updateGameField(field: Cell[][]) {
+  createGameField(field: Cell[][]) {
     for (let i = 0; i < field.length; i++) {
       const row = document.createElement("div");
       row.classList.add("row");
       for (let j = 0; j < field[0].length; j++) {
         const cell = document.createElement("div");
+        cell.classList.add("cell", "cell--dead");
+        cell.setAttribute("col", String(i));
+        cell.setAttribute("row", String(j));
+        row.appendChild(cell);
+      }
+      this.field.appendChild(row);
+    }
+  }
+
+  updateGameField(field: Cell[][]) {
+    for (let i = 0; i < field.length; i++) {
+      for (let j = 0; j < field[0].length; j++) {
         const stateCell = field[i][j] === 1 ? "cell--alive" : "cell--dead";
         cell.classList.add("cell", stateCell);
         row.appendChild(cell);
       }
-      this.table.appendChild(row);
+      this.field.appendChild(row);
     }
     // el.appendChild(table);
   }
