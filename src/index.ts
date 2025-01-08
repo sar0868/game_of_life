@@ -9,11 +9,26 @@ function layout(el: Element) {
     const row = document.createElement("div");
     row.classList.add("row");
     for (let j = 0; j < array[0].length; j++) {
-      row.innerHTML += `<div class="cell deathCell" col="${i}" row="${j}"></div>`;
+      const cell = document.createElement("div");
+      cell.classList.add("cell", "deathCell");
+      cell.setAttribute("col", `${i}`);
+      cell.setAttribute("row", `${j}`);
+      cell.addEventListener("click", aliveButtons);
+      row.appendChild(cell);
     }
     table.appendChild(row);
   }
   el.appendChild(table);
+}
+
+function aliveButtons() {
+  if (this.classList.contains("deathCell")) {
+    this.classList.add("aliveCell");
+    this.classList.remove("deathCell");
+  } else if (this.classList.contains("aliveCell")) {
+    this.classList.add("deathCell");
+    this.classList.remove("aliveCall");
+  }
 }
 
 layout(document.querySelector("body"));
