@@ -22,10 +22,10 @@ body {
   background-color: white;
 }
 
-.deathCell {
+.cell--dead {
   background-color: white;
 }
-.aliveCell {
+.cell--alive {
   background-color: green;
 }
 

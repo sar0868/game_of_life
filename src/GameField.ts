@@ -1,6 +1,6 @@
 import { Cell } from "./types/Cell";
 
-interface IGameField {
+export interface IGameField {
   toggleCellState(x: number, y: number);
   nextGeneration();
   setSize(width: number, height: number);
@@ -79,7 +79,7 @@ export class GameField implements IGameField {
 
   setSize(width: number, height: number) {
     const newField = Array.from({ length: height }, () =>
-      Array.from({ length: width }, () => 0),
+      Array.from({ length: width }, () => 0)
     );
     const rows = this.field.length > height ? height : this.field.length;
     const columns = this.field[0].length > width ? width : this.field[0].length;

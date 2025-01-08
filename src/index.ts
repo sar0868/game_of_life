@@ -10,9 +10,7 @@ function layout(el: Element) {
     row.classList.add("row");
     for (let j = 0; j < array[0].length; j++) {
       const cell = document.createElement("div");
-      cell.classList.add("cell", "deathCell");
-      cell.setAttribute("col", `${i}`);
-      cell.setAttribute("row", `${j}`);
+      cell.classList.add("cell", "cell--dead");
       cell.addEventListener("click", aliveButtons);
       row.appendChild(cell);
     }
@@ -22,12 +20,12 @@ function layout(el: Element) {
 }
 
 function aliveButtons() {
-  if (this.classList.contains("deathCell")) {
-    this.classList.add("aliveCell");
-    this.classList.remove("deathCell");
-  } else if (this.classList.contains("aliveCell")) {
-    this.classList.add("deathCell");
-    this.classList.remove("aliveCall");
+  if (this.classList.contains("cell--dead")) {
+    this.classList.add("cell--alive");
+    this.classList.remove("cell--dead");
+  } else if (this.classList.contains("cell--alive")) {
+    this.classList.add("cell--dead");
+    this.classList.remove("cell--alive");
   }
 }
 
