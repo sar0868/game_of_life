@@ -9,11 +9,16 @@ export interface IGameField {
 
 export class GameField implements IGameField {
   private field: Cell[][];
+  private height: number;
+  private width: number;
+
   constructor(height: number = 1, width: number = 0) {
-    const arr = Array(height);
-    for (let i = 0; i < height; i++) {
+    this.height = height;
+    this.width = width;
+    const arr = Array(this.height);
+    for (let i = 0; i < this.height; i++) {
       arr[i] = [];
-      for (let j = 0; j < width; j++) {
+      for (let j = 0; j < this.width; j++) {
         arr[i].push(0);
       }
     }
@@ -26,10 +31,10 @@ export class GameField implements IGameField {
 
   nextGeneration() {
     const field2 = this.field;
-    const height = field2.length;
-    const width = field2[0].length;
-    for (let i = 0; i < height; i++) {
-      for (let j = 0; j < width; j++) {
+    // this.height = field2.length;
+    // const width = field2[0].length;
+    for (let i = 0; i < this.height; i++) {
+      for (let j = 0; j < this.width; j++) {
         const count = this.countNeighbours(i, j);
         if (this.field[i][j] === 1) {
           if (count < 2 || count > 3) {
@@ -78,11 +83,15 @@ export class GameField implements IGameField {
   }
 
   setSize(width: number, height: number) {
-    const newField = Array.from({ length: height }, () =>
-      Array.from({ length: width }, () => 0)
+    this.height = height;
+    this.width = width;
+    const newField = Array.from({ length: this.height }, () =>
+      Array.from({ length: this.width }, () => 0)
     );
-    const rows = this.field.length > height ? height : this.field.length;
-    const columns = this.field[0].length > width ? width : this.field[0].length;
+    const rows =
+      this.field.length > this.height ? this.height : this.field.length;
+    const columns =
+      this.field[0].length > this.width ? this.width : this.field[0].length;
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < columns; j++) {
         newField[i][j] = this.field[i][j];
