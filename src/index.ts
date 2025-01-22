@@ -1,5 +1,7 @@
 import "./style.css";
 
+//тут создание игры
+
 function layout(el: Element) {
   const table = document.createElement("div");
   table.classList.add("gameField");
