@@ -33,6 +33,8 @@ export class GameView implements IGameView {
       for (let j = 0; j < field[0].length; j++) {
         const cell = document.createElement("div");
         const stateCell = field[i][j] === 1 ? "cell--alive" : "cell--dead";
+        cell.setAttribute("row", String(i));
+        cell.setAttribute("col", String(j));
         cell.classList.add("cell", stateCell);
         row.appendChild(cell);
       }
@@ -46,7 +48,10 @@ export class GameView implements IGameView {
     isRunning?: boolean;
   }) {}
   onCellClick(cb: (x: number, y: number) => void) {
-    throw new Error("Method not implemented.");
+    return (...args) => {
+      const [x, y] = args;
+      cb(x, y);
+    };
   }
   onGameStateChange(cb: (newState: boolean) => void) {
     throw new Error("Method not implemented.");
