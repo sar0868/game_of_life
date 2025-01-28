@@ -15,6 +15,7 @@ export interface IGameView {
 export class GameView implements IGameView {
   // private table: HTMLDivElement;
   private field: HTMLDivElement;
+  fn;
 
   constructor(el: HTMLElement) {
     this.field = document.createElement("div");
@@ -36,6 +37,7 @@ export class GameView implements IGameView {
         cell.setAttribute("row", String(i));
         cell.setAttribute("col", String(j));
         cell.classList.add("cell", stateCell);
+        cell.addEventListener("click", () => this.fn(i, j));
         row.appendChild(cell);
       }
       this.field.appendChild(row);
@@ -47,11 +49,13 @@ export class GameView implements IGameView {
     height?: number;
     isRunning?: boolean;
   }) {}
+  // onCellClick(cb: (x: number, y: number) => void) {
+  //   return (x: number, y: number) => {
+  //     cb(x, y);
+  //   };
+  // }
   onCellClick(cb: (x: number, y: number) => void) {
-    return (...args) => {
-      const [x, y] = args;
-      cb(x, y);
-    };
+    this.fn = (x, y) => cb(x, y);
   }
   onGameStateChange(cb: (newState: boolean) => void) {
     throw new Error("Method not implemented.");

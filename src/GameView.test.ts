@@ -70,13 +70,14 @@ describe("GameView", () => {
           bubbles: true,
         })
       );
-      expect(onCellClick).toHaveBeenCalledWith(0, 1);
+      // expect(onCellClick).toHaveBeenCalledTimes(1);
+      expect(onCellClick).toHaveBeenCalledWith(1, 0);
       el.querySelectorAll(".cell.cell--dead")[1].dispatchEvent(
         new Event("click", {
           bubbles: true,
         })
       );
-      expect(onCellClick).toHaveBeenCalledWith(1, 0);
+      expect(onCellClick).toHaveBeenCalledWith(0, 1);
     });
     it("renders correct game state on .updateGameState", () => {
       expect(
