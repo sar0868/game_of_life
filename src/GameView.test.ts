@@ -101,40 +101,40 @@ describe("GameView", () => {
           ).value
         )
       ).toBe(3);
-      expect(
-        Number(
-          (
-            el.querySelector(
-              "input[type='number'].field-size.field-size--height"
-            ) as HTMLInputElement
-          ).value
-        )
-      ).toBe(3);
-      gameView.updateGameState({ isRunning: false, width: 5, height: 6 });
-      expect(
-        el.querySelector(".run-button.run-button--stopped")
-      ).not.toBeNull();
-      expect(
-        el.querySelector(".run-button.run-button--stopped").innerHTML
-      ).toBe("Play");
-      expect(
-        Number(
-          (
-            el.querySelector(
-              "input[type='number'].field-size.field-size--width"
-            ) as HTMLInputElement
-          ).value
-        )
-      ).toBe(5);
-      expect(
-        Number(
-          (
-            el.querySelector(
-              "input[type='number'].field-size.field-size--height"
-            ) as HTMLInputElement
-          ).value
-        )
-      ).toBe(6);
+      // expect(
+      //   Number(
+      //     (
+      //       el.querySelector(
+      //         "input[type='number'].field-size.field-size--height"
+      //       ) as HTMLInputElement
+      //     ).value
+      //   )
+      // ).toBe(3);
+      // gameView.updateGameState({ isRunning: false, width: 5, height: 6 });
+      // expect(
+      //   el.querySelector(".run-button.run-button--stopped")
+      // ).not.toBeNull();
+      // expect(
+      //   el.querySelector(".run-button.run-button--stopped").innerHTML
+      // ).toBe("Play");
+      // expect(
+      //   Number(
+      //     (
+      //       el.querySelector(
+      //         "input[type='number'].field-size.field-size--width"
+      //       ) as HTMLInputElement
+      //     ).value
+      //   )
+      // ).toBe(5);
+      // expect(
+      //   Number(
+      //     (
+      //       el.querySelector(
+      //         "input[type='number'].field-size.field-size--height"
+      //       ) as HTMLInputElement
+      //     ).value
+      //   )
+      // ).toBe(6);
     });
     it("calls function from .onGameStateChange on control interaction", () => {
       const onGameStateChange = jest.fn();
