@@ -36,7 +36,7 @@ export class GameView implements IGameView {
     controls.appendChild(this.btnRun);
 
     this.heightSize = document.createElement("input");
-
+    this.heightSize.setAttribute("type", "number");
     this.heightSize.classList.add(".field-size.field-size--height");
     this.widthSize = document.createElement("input");
     this.widthSize.setAttribute("type", "number");
@@ -82,7 +82,7 @@ export class GameView implements IGameView {
       this.btnRun.innerHTML = "Play";
     }
     this.heightSize.value = String(state.height);
-    this.widthSize.value = "3";
+    this.widthSize.value = String(state.width);
   }
   onCellClick(cb: (x: number, y: number) => void) {
     this.fnCellClick = (x: number, y: number) => cb(x, y);
