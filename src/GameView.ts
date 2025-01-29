@@ -9,13 +9,15 @@ export interface IGameView {
   });
   onCellClick(cb: (x: number, y: number) => void);
   onGameStateChange(cb: (newState: boolean) => void);
-  onFieldSizeChange(cb: (width: number, height: number) => void);
+  onFieldSizeChange(cb: (height: number, width: number) => void);
 }
 
 export class GameView implements IGameView {
   // private table: HTMLDivElement;
   private field: HTMLDivElement;
   private fnCellClick: (x: number, y: number) => void;
+  private fnBtnClick: (newState: boolean) => void;
+  private fnFieldSizeChange: (height: number, width: number) => void;
   private btnRun: HTMLButtonElement;
   private heightSize: HTMLInputElement;
   private widthSize: HTMLInputElement;
@@ -25,10 +27,17 @@ export class GameView implements IGameView {
     this.field.classList.add("gameField");
     el.appendChild(this.field);
     el.appendChild(this.addControls());
+    el.querySelectorAll("input[type='number'].field-size").forEach((item) => {
+      item.addEventListener("change", () => {
+        const height = Number(this.heightSize.value);
+        const width = Number(this.widthSize.value);
+        this.fnFieldSizeChange(height, width);
+      });
+    });
   }
 
-  addControls(): Element {
-    const controls: Element = document.createElement("div");
+  addControls(): HTMLDivElement {
+    const controls: HTMLDivElement = document.createElement("div");
     controls.classList.add("gameControls");
     this.btnRun = document.createElement("button");
     this.btnRun.classList.add("run-button", "run-button--stopped");
@@ -70,6 +79,9 @@ export class GameView implements IGameView {
     height?: number;
     isRunning?: boolean;
   }) {
+    this.btnRun.addEventListener("click", () =>
+      this.fnBtnClick(state.isRunning)
+    );
     const classesBtn = this.btnRun.classList;
     if (state.isRunning) {
       if (classesBtn.contains("run-button--stopped")) {
@@ -88,9 +100,14 @@ export class GameView implements IGameView {
     this.fnCellClick = (x: number, y: number) => cb(x, y);
   }
   onGameStateChange(cb: (newState: boolean) => void) {
-    throw new Error("Method not implemented.");
+    this.fnBtnClick = (newState: boolean) => {
+      newState = newState ? false : true;
+      cb(newState);
+    };
   }
-  onFieldSizeChange(cb: (width: number, height: number) => void) {
-    throw new Error("Method not implemented.");
+  onFieldSizeChange(cb: (height: number, width: number) => void) {
+    this.fnFieldSizeChange = (height: number, width: number) => {
+      cb(height, width);
+    };
   }
 }

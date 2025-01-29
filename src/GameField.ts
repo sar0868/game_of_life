@@ -8,7 +8,7 @@ export interface IGameField {
 }
 
 export class GameField implements IGameField {
-  private field: Cell[][];
+  field: Cell[][];
   private height: number;
   private width: number;
 
