@@ -21,9 +21,9 @@ type gameState = {
 export class GameView implements IGameView {
   private field: HTMLDivElement;
   private controls: HTMLDivElement;
-  private fnCellClick: (x: number, y: number) => void;
-  private fnBtnClick: (newState: boolean) => void;
-  private fnFieldSizeChange: (height: number, width: number) => void;
+  private fnCellClick: (x: number, y: number) => void = () => {};
+  private fnBtnClick: (newState: boolean) => void = () => {};
+  private fnFieldSizeChange: (height: number, width: number) => void = () => {};
   private gameState?: gameState;
 
   constructor(el: HTMLElement) {
@@ -50,8 +50,6 @@ export class GameView implements IGameView {
       for (let j = 0; j < field[0].length; j++) {
         const cell = document.createElement("div");
         const stateCell = field[i][j] === 1 ? "cell--alive" : "cell--dead";
-        cell.setAttribute("row", String(i));
-        cell.setAttribute("col", String(j));
         cell.classList.add("cell", stateCell);
         cell.addEventListener("click", () => this.fnCellClick(i, j));
         row.appendChild(cell);
@@ -66,6 +64,24 @@ export class GameView implements IGameView {
     <button class="run-button run-button--${isRunning ? "runned" : "stopped"}">${isRunning ? "Stop" : "Play"}</button>
     <input type="number" class="field-size field-size--height" value='${this.gameState?.height}'/>
     <input type="number" class="field-size field-size--width" value='${this.gameState?.width}'/>`;
+    this.controls
+      .querySelector(".run-button")
+      ?.addEventListener("click", (event) =>
+        this.fnBtnClick(!event.target?.matches(".run-button--runned"))
+      );
+    const heightValue = this.controls.querySelector(
+      ".field-size--height"
+    ) as HTMLInputElement;
+    const widthValue = this.controls.querySelector(
+      ".field-size--width"
+    ) as HTMLInputElement;
+    const changeSize = () =>
+      this.fnFieldSizeChange(
+        Number(heightValue.value),
+        Number(widthValue.value)
+      );
+    heightValue.addEventListener("change", changeSize);
+    widthValue.addEventListener("change", changeSize);
   }
 
   updateGameState(state: {
@@ -80,14 +96,9 @@ export class GameView implements IGameView {
     this.fnCellClick = (x: number, y: number) => cb(x, y);
   }
   onGameStateChange(cb: (newState: boolean) => void) {
-    this.fnBtnClick = (newState: boolean) => {
-      newState = newState ? false : true;
-      cb(newState);
-    };
+    this.fnBtnClick = cb;
   }
   onFieldSizeChange(cb: (height: number, width: number) => void) {
-    this.fnFieldSizeChange = (height: number, width: number) => {
-      cb(height, width);
-    };
+    this.fnFieldSizeChange = cb;
   }
 }
