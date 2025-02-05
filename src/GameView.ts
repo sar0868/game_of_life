@@ -12,48 +12,34 @@ export interface IGameView {
   onFieldSizeChange(cb: (height: number, width: number) => void);
 }
 
+type gameState = {
+  width?: number;
+  height?: number;
+  isRunning?: boolean;
+};
+
 export class GameView implements IGameView {
-  // private table: HTMLDivElement;
   private field: HTMLDivElement;
+  private controls: HTMLDivElement;
   private fnCellClick: (x: number, y: number) => void;
   private fnBtnClick: (newState: boolean) => void;
   private fnFieldSizeChange: (height: number, width: number) => void;
-  private btnRun: HTMLButtonElement;
-  private heightSize: HTMLInputElement;
-  private widthSize: HTMLInputElement;
+  private gameState?: gameState;
 
   constructor(el: HTMLElement) {
     this.field = document.createElement("div");
     this.field.classList.add("gameField");
     el.appendChild(this.field);
-    el.appendChild(this.addControls());
-    el.querySelectorAll("input[type='number'].field-size").forEach((item) => {
-      item.addEventListener("change", () => {
-        const height = Number(this.heightSize.value);
-        const width = Number(this.widthSize.value);
-        this.fnFieldSizeChange(height, width);
-      });
-    });
-  }
-
-  addControls(): HTMLDivElement {
-    const controls: HTMLDivElement = document.createElement("div");
-    controls.classList.add("gameControls");
-    this.btnRun = document.createElement("button");
-    this.btnRun.classList.add("run-button", "run-button--stopped");
-    this.btnRun.innerHTML = "Play";
-    controls.appendChild(this.btnRun);
-
-    this.heightSize = document.createElement("input");
-    this.heightSize.setAttribute("type", "number");
-    this.heightSize.classList.add(".field-size.field-size--height");
-    this.widthSize = document.createElement("input");
-    this.widthSize.setAttribute("type", "number");
-    this.widthSize.classList.add(".field-size.field-size--width");
-    controls.appendChild(this.heightSize);
-    controls.appendChild(this.widthSize);
-
-    return controls;
+    this.controls = document.createElement("div");
+    this.controls.classList.add("gameControls");
+    el.appendChild(this.controls);
+    this.updateGameControls();
+    //   item.addEventListener("change", () => {
+    //     const height = Number(this.heightSize.value);
+    //     const width = Number(this.widthSize.value);
+    //     this.fnFieldSizeChange(height, width);
+    //   });
+    // });
   }
 
   updateGameField(field: Cell[][]) {
@@ -74,27 +60,21 @@ export class GameView implements IGameView {
     }
   }
 
+  updateGameControls() {
+    const isRunning = this.gameState?.isRunning;
+    this.controls.innerHTML = `
+    <button class="run-button run-button--${isRunning ? "runned" : "stopped"}">${isRunning ? "Stop" : "Play"}</button>
+    <input type="number" class="field-size field-size--height" value='${this.gameState?.height}'/>
+    <input type="number" class="field-size field-size--width" value='${this.gameState?.width}'/>`;
+  }
+
   updateGameState(state: {
     width?: number;
     height?: number;
     isRunning?: boolean;
   }) {
-    this.btnRun.addEventListener("click", () =>
-      this.fnBtnClick(state.isRunning)
-    );
-    const classesBtn = this.btnRun.classList;
-    if (state.isRunning) {
-      if (classesBtn.contains("run-button--stopped")) {
-        classesBtn.replace("run-button--stopped", "run-button--runned");
-        this.btnRun.innerHTML = "Stop";
-      }
-    } else {
-      if (classesBtn.contains("run-button--runned"))
-        classesBtn.replace("run-button--runned", "run-button--stopped");
-      this.btnRun.innerHTML = "Play";
-    }
-    this.heightSize.value = String(state.height);
-    this.widthSize.value = String(state.width);
+    this.gameState = state;
+    this.updateGameControls();
   }
   onCellClick(cb: (x: number, y: number) => void) {
     this.fnCellClick = (x: number, y: number) => cb(x, y);

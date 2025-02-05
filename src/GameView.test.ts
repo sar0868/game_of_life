@@ -80,66 +80,61 @@ describe("GameView", () => {
       expect(onCellClick).toHaveBeenCalledWith(0, 1);
     });
     it("renders correct game state on .updateGameState", () => {
-      // expect(
-      //   el.querySelector(".run-button.run-button--stopped")
-      // ).not.toBeNull();
-      // expect(
-      //   el.querySelector(".run-button.run-button--stopped").innerHTML
-      // ).toBe("Play");
+      expect(
+        el.querySelector(".run-button.run-button--stopped")
+      ).not.toBeNull();
+      expect(
+        el.querySelector(".run-button.run-button--stopped").innerHTML
+      ).toBe("Play");
       gameView.updateGameState({ isRunning: true, width: 3, height: 3 });
-      // expect(el.querySelector(".run-button.run-button--stopped")).toBeNull();
-      // expect(el.querySelector(".run-button.run-button--runned")).not.toBeNull();
-      // expect(el.querySelector(".run-button.run-button--runned").innerHTML).toBe(
-      //   "Stop"
-      // );
-      const item = el.querySelector(
-        "input[type='number'].field-size.field-size--width"
-      ) as HTMLInputElement;
-      const itemValue = item ? item.value : "0";
-      expect(Number(itemValue)).toBe(3);
-      // expect(
-      //   Number(
-      //     (
-      //       el.querySelector(
-      //         "input[type='number'].field-size.field-size--width"
-      //       ) as HTMLInputElement
-      //     ).value
-      //   )
-      // ).toBe(3);
-      // expect(
-      //   Number(
-      //     (
-      //       el.querySelector(
-      //         "input[type='number'].field-size.field-size--height"
-      //       ) as HTMLInputElement
-      //     ).value
-      //   )
-      // ).toBe(3);
-      // gameView.updateGameState({ isRunning: false, width: 5, height: 6 });
-      // expect(
-      //   el.querySelector(".run-button.run-button--stopped")
-      // ).not.toBeNull();
-      // expect(
-      //   el.querySelector(".run-button.run-button--stopped").innerHTML
-      // ).toBe("Play");
-      // expect(
-      //   Number(
-      //     (
-      //       el.querySelector(
-      //         "input[type='number'].field-size.field-size--width"
-      //       ) as HTMLInputElement
-      //     ).value
-      //   )
-      // ).toBe(5);
-      // expect(
-      //   Number(
-      //     (
-      //       el.querySelector(
-      //         "input[type='number'].field-size.field-size--height"
-      //       ) as HTMLInputElement
-      //     ).value
-      //   )
-      // ).toBe(6);
+      expect(el.querySelector(".run-button.run-button--stopped")).toBeNull();
+      expect(el.querySelector(".run-button.run-button--runned")).not.toBeNull();
+      expect(el.querySelector(".run-button.run-button--runned").innerHTML).toBe(
+        "Stop"
+      );
+      expect(
+        Number(
+          (
+            el.querySelector(
+              "input[type='number'].field-size.field-size--width"
+            ) as HTMLInputElement
+          ).value
+        )
+      ).toBe(3);
+      expect(
+        Number(
+          (
+            el.querySelector(
+              "input[type='number'].field-size.field-size--height"
+            ) as HTMLInputElement
+          ).value
+        )
+      ).toBe(3);
+      gameView.updateGameState({ isRunning: false, width: 5, height: 6 });
+      expect(
+        el.querySelector(".run-button.run-button--stopped")
+      ).not.toBeNull();
+      expect(
+        el.querySelector(".run-button.run-button--stopped").innerHTML
+      ).toBe("Play");
+      expect(
+        Number(
+          (
+            el.querySelector(
+              "input[type='number'].field-size.field-size--width"
+            ) as HTMLInputElement
+          ).value
+        )
+      ).toBe(5);
+      expect(
+        Number(
+          (
+            el.querySelector(
+              "input[type='number'].field-size.field-size--height"
+            ) as HTMLInputElement
+          ).value
+        )
+      ).toBe(6);
     });
     it("calls function from .onGameStateChange on control interaction", () => {
       const onGameStateChange = jest.fn();
