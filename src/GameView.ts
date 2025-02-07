@@ -67,7 +67,7 @@ export class GameView implements IGameView {
     this.controls
       .querySelector(".run-button")
       ?.addEventListener("click", (event) =>
-        this.fnBtnClick(!event.target?.matches(".run-button--runned"))
+        this.fnBtnClick(!event.target.matches(".run-button--runned"))
       );
     const heightValue = this.controls.querySelector(
       ".field-size--height"
