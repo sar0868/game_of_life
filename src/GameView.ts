@@ -1,15 +1,15 @@
 import { Cell } from "./types/Cell";
 
 export interface IGameView {
-  updateGameField(field: Cell[][]);
+  updateGameField(field: Cell[][]): void;
   updateGameState(state: {
     width?: number;
     height?: number;
     isRunning?: boolean;
-  });
-  onCellClick(cb: (x: number, y: number) => void);
-  onGameStateChange(cb: (newState: boolean) => void);
-  onFieldSizeChange(cb: (height: number, width: number) => void);
+  }): void;
+  onCellClick(cb: (x: number, y: number) => void): void;
+  onGameStateChange(cb: (newState: boolean) => void): void;
+  onFieldSizeChange(cb: (height: number, width: number) => void): void;
 }
 
 type gameState = {
@@ -67,7 +67,7 @@ export class GameView implements IGameView {
     this.controls
       .querySelector(".run-button")
       ?.addEventListener("click", (event) =>
-        this.fnBtnClick(!event.target?.matches(".run-button--runned"))
+        this.fnBtnClick(!event.target.matches(".run-button--runned"))
       );
     const heightValue = this.controls.querySelector(
       ".field-size--height"
