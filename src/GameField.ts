@@ -8,7 +8,7 @@ export interface IGameField {
 }
 
 export class GameField implements IGameField {
-  field: Cell[][];
+  private field: Cell[][];
   private height: number;
   private width: number;
 
@@ -31,8 +31,6 @@ export class GameField implements IGameField {
 
   nextGeneration() {
     const field2 = this.field;
-    // this.height = field2.length;
-    // const width = field2[0].length;
     for (let i = 0; i < this.height; i++) {
       for (let j = 0; j < this.width; j++) {
         const count = this.countNeighbours(i, j);

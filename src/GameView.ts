@@ -34,12 +34,6 @@ export class GameView implements IGameView {
     this.controls.classList.add("gameControls");
     el.appendChild(this.controls);
     this.updateGameControls();
-    //   item.addEventListener("change", () => {
-    //     const height = Number(this.heightSize.value);
-    //     const width = Number(this.widthSize.value);
-    //     this.fnFieldSizeChange(height, width);
-    //   });
-    // });
   }
 
   updateGameField(field: Cell[][]) {
@@ -66,9 +60,10 @@ export class GameView implements IGameView {
     <input type="number" class="field-size field-size--width" value='${this.gameState?.width}'/>`;
     this.controls
       .querySelector(".run-button")
-      ?.addEventListener("click", (event) =>
-        this.fnBtnClick(!event.target.matches(".run-button--runned"))
-      );
+      ?.addEventListener("click", (event) => {
+        const el = event.target as HTMLElement;
+        this.fnBtnClick(!el.className.match(".run-button--runned"));
+      });
     const heightValue = this.controls.querySelector(
       ".field-size--height"
     ) as HTMLInputElement;
