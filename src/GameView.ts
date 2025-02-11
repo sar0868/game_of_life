@@ -24,7 +24,7 @@ export class GameView implements IGameView {
   private fnCellClick: (x: number, y: number) => void = () => {};
   private fnBtnClick: (newState: boolean) => void = () => {};
   private fnFieldSizeChange: (height: number, width: number) => void = () => {};
-  private gameState?: gameState;
+  private state?: gameState;
 
   constructor(el: HTMLElement) {
     this.field = document.createElement("div");
@@ -33,6 +33,11 @@ export class GameView implements IGameView {
     this.controls = document.createElement("div");
     this.controls.classList.add("gameControls");
     el.appendChild(this.controls);
+    // this.state = {
+    //   isRunning: false,
+    //   height: 0,
+    //   width: 0,
+    // };
     this.updateGameControls();
   }
 
@@ -50,14 +55,17 @@ export class GameView implements IGameView {
       }
       this.field.appendChild(row);
     }
+    // this.state.height = field.length;
+    // this.state.width = field[0].length;
+    // this.updateGameState(this.state);
   }
 
   updateGameControls() {
-    const isRunning = this.gameState?.isRunning;
+    const isRunning = this.state?.isRunning;
     this.controls.innerHTML = `
     <button class="run-button run-button--${isRunning ? "runned" : "stopped"}">${isRunning ? "Stop" : "Play"}</button>
-    <input type="number" class="field-size field-size--height" value='${this.gameState?.height}'/>
-    <input type="number" class="field-size field-size--width" value='${this.gameState?.width}'/>`;
+    <input type="number" class="field-size field-size--height" value='${this.state?.height}'/>
+    <input type="number" class="field-size field-size--width" value='${this.state?.width}'/>`;
     this.controls
       .querySelector(".run-button")
       ?.addEventListener("click", (event) => {
@@ -84,7 +92,7 @@ export class GameView implements IGameView {
     height?: number;
     isRunning?: boolean;
   }) {
-    this.gameState = state;
+    this.state = state;
     this.updateGameControls();
   }
   onCellClick(cb: (x: number, y: number) => void) {

@@ -5,8 +5,8 @@ import { Cell } from "./types/Cell";
 // export interface IGame {}
 
 export class Game {
-  private gameField: IGameField;
-  private gameView: IGameView;
+  private gameField: GameField;
+  private gameView: GameView;
   private stepDurationMs: number;
 
   constructor(
@@ -18,22 +18,35 @@ export class Game {
     this.gameView = gameView;
     this.stepDurationMs = stepDurationMs;
 
-    this.addField();
-    this.toggleCallState();
+    this.updateField();
+    // this.toggleCallState();
   }
 
-  addField() {
+  // addFieldAndState(){
+  //   const field = this.gameField.getState();
+  //   this. gameView.updateGameField(field);
+
+  // }
+
+  updateField() {
     const state: Cell[][] = this.gameField.getState();
     this.gameView.updateGameField(state);
     this.gameView.updateGameState({
       isRunning: false,
-      width: state[0].length,
       height: state.length,
+      width: state[0].length,
     });
+    // this.gameView.updateGameState(state);
   }
 
   toggleCallState() {
     this.gameView.onCellClick(this.gameField.toggleCellState);
-    this.gameView.updateGameField(this.gameField.getState());
+    const state: Cell[][] = this.gameField.getState();
+    this.gameView.updateGameState({
+      isRunning: false,
+      height: state.length,
+      width: state[0].length,
+    });
+    // this.gameView.updateGameField(this.gameField.getState());
   }
 }
