@@ -19,7 +19,6 @@ export class Game {
     this.stepDurationMs = stepDurationMs;
 
     this.updateField();
-    // this.toggleCallState();
   }
 
   // addFieldAndState(){
@@ -36,6 +35,7 @@ export class Game {
       height: state.length,
       width: state[0].length,
     });
+    this.toggleCallState();
     // this.gameView.updateGameState(state);
   }
 
@@ -47,6 +47,7 @@ export class Game {
       height: state.length,
       width: state[0].length,
     });
+    // this.gameView.updateGameField(state);
     // this.gameView.updateGameField(this.gameField.getState());
   }
 }
